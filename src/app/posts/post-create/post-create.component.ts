@@ -1,23 +1,28 @@
-import { Component,EventEmitter,Output } from '@angular/core';
-import{Post} from "../post.model";
+import { Component } from "@angular/core";
+import { NgForm } from "@angular/forms";
+
+import { PostsService } from "../posts.service";
 
 @Component({
-  selector:'app-post-create',
-  templateUrl:'./post-create.component.html',
-  styleUrls:['./post-create.component.css']
+  selector: "app-post-create",
+  templateUrl: "./post-create.component.html",
+  styleUrls: ["./post-create.component.css"]
 })
-export class PostCreateComponent{
-  //postun templateini uste design ettim
-enterendContent="";
-enteredTitle="";
- @Output() postCreated= new EventEmitter<Post>();
-  onAddpost(){
-    //postu objesini olusturdum
-const post: Post ={
-  title:this.enteredTitle,
-  content:this.enterendContent
-}
-//event emitteri kullanarak bu postu display etmesini istedim
-this.postCreated.emit(post);
-}
+//postu create etmek icin bir file actim orada iki variable tanimladim title ve content olarak
+
+export class PostCreateComponent {
+  enteredTitle = "";
+  enteredContent = "";
+
+  //post la alakali seyleri post service clasinda hendle ettim sadece burda bi object olusturarak buraya ekledim
+  constructor(public postsService: PostsService) {}
+
+
+  onAddPost(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    this.postsService.addPost(form.value.title, form.value.content);
+    form.resetForm();
+  }
 }

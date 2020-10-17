@@ -6,6 +6,8 @@ templateUrl:'./header.component.html'
 
 })
 export class HeaderComponent{
-
+//header clasi ni olusturduk, ts ve html file larinin actik direkt angular tooldan kopyaladigimiz icin css koymadim
+//component kisminda main app htmm de kullanacagim selector atadim ve o selectorun hedef url ni template url olarak ekledim
+// disarisdan classa ulasabilmek icin export la baslamak gerekiyor
 
 }

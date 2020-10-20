@@ -42,22 +42,18 @@ post.save();
 });
 
 app.get("/api/posts", (req, res, next) => {
-  const posts = [
-    {
-      id: "fadf12421l",
-      title: "First server-side post",
-      content: "This is coming from the server"
-    },
-    {
-      id: "ksajflaj132",
-      title: "Second server-side post",
-      content: "This is coming from the server!"
-    }
-  ];
+ Post.find().then(documents=>{
   res.status(200).json({
     message: "Posts fetched successfully!",
-    posts: posts
+    posts: documents
   });
-});
+ });
 
+});
+app.delete("/api/posts/:id",(req,res,next)=>{
+console.log(req.params.id);
+res.status(200).json({message:"Post deleted"});
+
+
+});
 module.exports = app;

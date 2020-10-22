@@ -1,10 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-<<<<<<< HEAD
-import { pipe, Subject } from "rxjs";
-=======
-import { Subject } from "rxjs";
->>>>>>> 44fb45c6f5872bbf26db093999206280d4ba4800
+import { pipe } from "rxjs";
+  import {  Subject } from "rxjs";
 import{map}from "rxjs/operators";
 import { Post } from "./post.model";
 
@@ -23,7 +20,6 @@ export class PostsService {
       .get<{ message: string; posts: any }>(
         "http://localhost:3000/api/posts"
       )
-<<<<<<< HEAD
       .pipe(map( (postData)=>{
         return postData.posts.map(post=>{
        return {
@@ -35,19 +31,6 @@ export class PostsService {
       }))
       .subscribe(transformendPosts => {
         this.posts =transformendPosts;
-=======
-      .pipe(map((postData)=>{
-        return postData.posts.map(post=>{
-          return{
-            title:post.title,
-            content:post.content,
-            id:post._id
-          };
-        });
-      }))
-      .subscribe(Transformendposts=> {
-        this.posts =Transformendposts;
->>>>>>> 44fb45c6f5872bbf26db093999206280d4ba4800
         this.postsUpdated.next([...this.posts]);
       });
   }
@@ -66,7 +49,6 @@ export class PostsService {
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
       });
-<<<<<<< HEAD
     }
 
  deletePost(postId:string){
@@ -80,14 +62,3 @@ this.postsUpdated.next([...this.posts]);
       }
 
     }
-=======
-  }
-  deletePost(postId:string){
-    this.http.delete("http://localhost:3000/api/posts"+postId)
-    .subscribe(()=>{
-      console.log("deleted");
-    }
-    );
-  }
-}
->>>>>>> 44fb45c6f5872bbf26db093999206280d4ba4800

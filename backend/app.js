@@ -49,19 +49,34 @@ post.save().then(createdPost=>{
 });
 
 app.get("/api/posts", (req, res, next) => {
+<<<<<<< HEAD
   Post.find().then(documents=>{
     res.status(200).json({
       message: "Posts fetched successfully!",
       posts:documents
   });
 
+=======
+ Post.find().then(documents=>{
+  res.status(200).json({
+    message: "Posts fetched successfully!",
+    posts: documents
+>>>>>>> 44fb45c6f5872bbf26db093999206280d4ba4800
   });
+ });
+
 });
 app.delete("/api/posts/:id",(req,res,next)=>{
+<<<<<<< HEAD
   Post.deleteOne({_id:req.params.id}).then(result=>{
     console.log(result);
     res.status(200).json({message:"Post deleted"});
   });
+=======
+console.log(req.params.id);
+res.status(200).json({message:"Post deleted"});
+
+>>>>>>> 44fb45c6f5872bbf26db093999206280d4ba4800
 
 });
 module.exports = app;

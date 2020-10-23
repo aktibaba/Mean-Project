@@ -31,5 +31,7 @@ const postsRoutes=require("./routes/posts")
     );
     next();
   });
-app.use("/api/posts",postsRoutes)
-  module.exports = app;
+app.use("/api/posts",postsRoutes);
+
+
+module.exports = app;

@@ -5,6 +5,7 @@
   import{map}from "rxjs/operators";
   import { Post } from "./post.model";
   import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
   @Injectable({ providedIn: "root" })// roota inject et
 
@@ -14,7 +15,7 @@
 
     private postsUpdated = new Subject<Post[]>();//bide yeni post olusturursak onuda postun turunden yeniden olustur dedik
 
-    constructor(private http: HttpClient) {} //http requesti icin http yuo create ettin
+    constructor(private http: HttpClient, private router:Router) {} //http requesti icin http yuo create ettin
 
     getPosts() {
       this.http
@@ -45,19 +46,23 @@
       this.http
         .post<{ message: string,postId:string }>("http://localhost:3000/api/posts", post)
         .subscribe(responseData => {
-      const id =responseData.postId;
-      post.id=id;
+          const id =responseData.postId;
+          post.id=id;
           this.posts.push(post);
           this.postsUpdated.next([...this.posts]);
+          this.router.navigate(["/"]);
         });
       }
+
   getPost(id:string){
-    return this.http.get<{id:string, title:string,content:string}>("http://localhost:3000/api/posts/"+id);
+
+    return this.http.get<{_id:string, title:string,content:string}>("http://localhost:3000/api/posts/"+id);
   }
 
   updatePost(id:string,title:string,content:string){
 
   const post:Post ={id:id,title:title, content:content};
+
   this.http
   .put("http://localhost:3000/api/posts/"+id,post)
   .subscribe(response=>{
@@ -66,6 +71,8 @@
     updatedPosts[oldPostIndex]=post;
     this.posts=updatedPosts;
     this.postsUpdated.next([...this.posts]);
+    this.router.navigate(["/"]);
+
   });
   }
 
